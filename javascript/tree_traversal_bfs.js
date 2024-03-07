@@ -8,6 +8,29 @@ class Node {
 
 function levelOrderTraversal(root) {
   // type your code here
+  if (!root) {
+    return [];
+  }
+
+  let result = [];
+  let queue = [root];
+  while (queue.length > 0) {
+      if (root.left) {
+        queue.push(root.left);
+      }
+      if (root.right) {
+        queue.push(root.right);
+      }
+
+      let firstNode = queue[0];
+      result.push(firstNode.value);
+      queue.shift();
+      // console.log("QUEUE is", queue)
+      root = queue[0];
+
+  }
+
+  return result;
 }
 
 if (require.main === module) {
@@ -21,6 +44,13 @@ if (require.main === module) {
   root = new Node(10, new Node(20, new Node(9), new Node(22)), new Node(30));
 
   console.log("Expecting: [[10], [20, 30], [9, 22]]");
+  console.log(levelOrderTraversal(root));
+
+  console.log("");
+
+  root = new Node(10, new Node(20, new Node(9), new Node(22)), new Node(30, null, new Node(40)));
+
+  console.log("Expecting: [[10], [20, 30], [9, 22, 40]]");
   console.log(levelOrderTraversal(root));
 }
 
